@@ -1,0 +1,1 @@
+# Picpay Simplified Challenge
