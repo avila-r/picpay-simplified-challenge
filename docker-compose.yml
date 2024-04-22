@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  notification-service:
+  kafka:
     image: 'bitnami/kafka:latest'
     ports:
       - '9094:9094'
@@ -12,4 +12,10 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER 
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+  db:
+    build: ./services/database
+    container_name: picpay-database
+    ports:
+      - '5432:5432'
