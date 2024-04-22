@@ -1,4 +1,5 @@
 package com.avila.picpay.model;
+import com.avila.picpay.exception.UnauthorizedTransactionException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,5 +18,9 @@ public record Transaction(
 
     public Transaction {
         value = value.setScale(2);
+    }
+
+    public void refuse() {
+        throw new UnauthorizedTransactionException("Transaction refused by authorization service");
     }
 }
