@@ -11,16 +11,21 @@ public record Customer(
         Long cpf,
         String email,
         String password,
-        int type,
+        CustomerType type,
         BigDecimal balance
     ) {
 
     public enum CustomerType {
-        COMMON(1), SELLER(2);
-        private final int value;
-        CustomerType(int value) {
-            this.value = value;
-        }
+        COMMON, SELLER;
+        CustomerType() { }
+    }
+
+    public boolean isAbleToPay(BigDecimal value) {
+        return balance.compareTo(value) >= 0;
+    }
+
+    public boolean isCommonCustomer() {
+        return type == CustomerType.COMMON;
     }
 
     public Customer debit(BigDecimal value) {
