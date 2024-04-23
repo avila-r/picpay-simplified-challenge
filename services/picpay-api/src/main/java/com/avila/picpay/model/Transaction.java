@@ -15,11 +15,12 @@ public record Transaction(
         BigDecimal value,
         @Column("created_at") @CreatedDate LocalDateTime createdAt) {
 
-    public Transaction {
-        value = value.setScale(2);
-    }
-
     public void refuse() {
         throw new UnauthorizedTransactionException("Transaction refused by authorization service");
+    }
+
+    @Override
+    public String toString(){
+        return "{payer: " + this.payer + ", payee: " + this.payee + ", value: " + this.value + "}";
     }
 }
