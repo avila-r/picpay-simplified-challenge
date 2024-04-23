@@ -1,4 +1,13 @@
 -- Verifica se o banco de dados 'picpay_db' já existe antes de criar
+DO $$ 
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'picpay_db') THEN
+        CREATE DATABASE picpay_db;
+    END IF;
+END $$;
+
+
+CREATE TYPE customer_type AS ENUM ('COMMON', 'SELLER');
 --
 CREATE TABLE IF NOT EXISTS customers (
     id SERIAL PRIMARY KEY,
@@ -6,7 +15,7 @@ CREATE TABLE IF NOT EXISTS customers (
     cpf BIGINT NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    customer_type VARCHAR(255) NOT NULL,
+    customer_type customer_type_enum NOT NULL,
     balance NUMERIC(10, 2) DEFAULT 0.0 NOT NULL
 );
 
