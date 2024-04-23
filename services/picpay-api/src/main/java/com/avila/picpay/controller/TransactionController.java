@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController @AllArgsConstructor
-@RequestMapping("/transaction")
+@RequestMapping("/transfer")
 public class TransactionController {
     private final TransactionRepository repository;
     private final TransactionService service;
