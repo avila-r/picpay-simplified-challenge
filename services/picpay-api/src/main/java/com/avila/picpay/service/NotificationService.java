@@ -30,7 +30,7 @@ public class NotificationService {
                 "sender: " + transaction.payer() + ", " +
                 "receiver: " + transaction.payee() + ", " +
                 "value: " + transaction.value() + ", " +
-                "timestamp: " + transaction.createdAt() + ", " +
+                "timestamp: " + transaction.createdAt() +
                 "}";
     }
 }
