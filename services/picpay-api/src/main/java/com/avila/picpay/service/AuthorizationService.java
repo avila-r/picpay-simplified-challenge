@@ -1,6 +1,7 @@
 package com.avila.picpay.service;
 import com.avila.picpay.model.Authorization;
 import com.avila.picpay.model.Transaction;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class AuthorizationService {
             .build();
     }
 
-    public void authorize(Transaction transaction){
-        logger.info("Authorizing transaction: {}", transaction);
+    public void authorize(@NotNull Transaction transaction){
+        logger.info("Authorizing transaction {}", transaction);
         ResponseEntity<Authorization> authorization = client.get()
             .retrieve().toEntity(Authorization.class);
         if ((authorization.getStatusCode().isError()) && !(Objects.requireNonNull(authorization.getBody()).isAuthorized())) {
