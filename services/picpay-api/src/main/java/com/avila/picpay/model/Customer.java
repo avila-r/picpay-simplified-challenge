@@ -10,7 +10,8 @@ public record Customer(
         Long cpf,
         String email,
         String password,
-        @Column(name = "customer_type") CustomerType type,
+        @Column(name = "customer_type") @Enumerated(EnumType.STRING)
+        CustomerType type,
         BigDecimal balance
     ) {
 
