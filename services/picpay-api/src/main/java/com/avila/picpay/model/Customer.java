@@ -1,16 +1,16 @@
 package com.avila.picpay.model;
-import jakarta.persistence.Table;
-import lombok.Getter;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
 @Table(name = "customers")
 public record Customer(
-        Long id,
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id,
         String name,
         Long cpf,
         String email,
         String password,
-        CustomerType type,
+        @Column(name = "customer_type") CustomerType type,
         BigDecimal balance
     ) {
 
