@@ -26,7 +26,7 @@ public class TransactionService {
         logger.info("Transaction created {}", transaction);
         makeTransaction(transaction);
         authorizationService.authorize(transaction);
-        notificationService.notifyTransaction(transaction);
+        notificationService.notifyTransaction(createdTransaction);
         return createdTransaction;
     }
 
@@ -43,7 +43,7 @@ public class TransactionService {
     }
 
 
-    private void validate(Transaction transaction){
+    private void validate(@NotNull Transaction transaction){
         logger.info("Validating transaction {}", transaction);
         customerRepository.findById(transaction.payee())
                 .map(payee -> customerRepository.findById(transaction.payer())
