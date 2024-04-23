@@ -1,18 +1,19 @@
 package com.avila.picpay.model;
 import com.avila.picpay.exception.UnauthorizedTransactionException;
-import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
 @Table(name = "transactions")
 public record Transaction(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id,
+        @Id Long id,
         Long payer,
         Long payee,
         BigDecimal value,
-        @CreatedDate LocalDateTime createdAt) {
+        @Column("created_at") @CreatedDate LocalDateTime createdAt) {
 
     public Transaction {
         value = value.setScale(2);
