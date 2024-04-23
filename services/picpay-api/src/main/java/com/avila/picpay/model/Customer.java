@@ -1,31 +1,31 @@
 package com.avila.picpay.model;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
-@Entity
 @Table(name = "customers")
 public record Customer(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id,
+        @Id Long id,
         String name,
         Long cpf,
         String email,
         String password,
-        @Column(name = "customer_type") @Enumerated(EnumType.STRING)
-        CustomerType type,
+        @Column("customer_type") String type,
         BigDecimal balance
     ) {
-
-    public enum CustomerType {
-        COMMON, SELLER;
-        CustomerType() { }
-    }
 
     public boolean isAbleToPay(BigDecimal value) {
         return balance.compareTo(value) >= 0;
     }
 
     public boolean isCommonCustomer() {
-        return type == CustomerType.COMMON;
+        return Objects.equals(type, "COMMON");
+    }
+
+    public boolean isSellerCustomer() {
+        return Objects.equals(type, "SELLER");
     }
 
     public Customer debit(BigDecimal value) {
