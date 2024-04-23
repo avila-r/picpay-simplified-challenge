@@ -3,7 +3,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import java.math.BigDecimal;
 
-@Getter
 @Table(name = "customers")
 public record Customer(
         Long id,
