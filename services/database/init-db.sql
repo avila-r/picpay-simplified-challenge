@@ -1,4 +1,3 @@
--- Verifica se o banco de dados 'picpay_db' já existe antes de criar
 --
 CREATE TABLE IF NOT EXISTS customers (
     id SERIAL PRIMARY KEY,
