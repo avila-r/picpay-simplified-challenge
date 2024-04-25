@@ -1,4 +1,5 @@
 package com.avila.picpay.exception.handler;
+import com.avila.picpay.exception.InvalidCustomerRegistryException;
 import com.avila.picpay.exception.InvalidTransactionException;
 import com.avila.picpay.exception.UnauthorizedTransactionException;
 import com.avila.picpay.exception.model.ErrorResponseMessage;
@@ -41,6 +42,22 @@ public class ServiceExceptionsHandler {
                 .status(status)
                 .headers(headers)
                 .body(new Authorization(e.getMessage())
+                );
+    }
+
+    @ExceptionHandler(InvalidCustomerRegistryException.class)
+    public ResponseEntity<@NotNull ErrorResponseMessage> handleInvalidCustomerRegistryException(
+            @NotNull InvalidCustomerRegistryException e
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Error-type", "Invalid customer registry");
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        return ResponseEntity
+                .status(status)
+                .headers(headers)
+                .body(new ErrorResponseMessage(status.value(), e.getMessage())
                 );
     }
 }
