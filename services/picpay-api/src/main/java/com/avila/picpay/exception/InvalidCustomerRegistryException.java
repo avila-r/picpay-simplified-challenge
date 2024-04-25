@@ -1,7 +1,7 @@
 package com.avila.picpay.exception;
 
-public class InvalidCustomerTypeException extends RuntimeException {
-    public InvalidCustomerTypeException(String message) {
+public class InvalidCustomerRegistryException extends RuntimeException {
+    public InvalidCustomerRegistryException(String message) {
         super(message);
     }
 }
