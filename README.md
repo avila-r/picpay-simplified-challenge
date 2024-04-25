@@ -75,6 +75,8 @@ curl -X POST \
 
 If everything is working as expected, the request should return inserted customers.
 
+<--- WIP --->
+
  Get all customers using cURL request:
  ```bash
 curl http://localhost:8080/customer
