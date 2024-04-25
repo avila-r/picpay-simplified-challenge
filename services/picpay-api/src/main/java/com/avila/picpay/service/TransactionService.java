@@ -42,19 +42,29 @@ public class TransactionService {
         }
     }
 
-
     private void validate(@NotNull Transaction transaction){
         logger.info("Validating transaction {}", transaction);
-        customerRepository.findById(transaction.payee())
-                .map(payee -> customerRepository.findById(transaction.payer())
-                        .map(payer -> isPayerValid(transaction, payer) ? transaction : null)
-                        .orElseThrow(() -> new InvalidTransactionException("Invalid transaction - " + transaction))
-                ).orElseThrow(() -> new InvalidTransactionException("Invalid transaction - " + transaction));
+        if (customerRepository.findById(transaction.payee()).isEmpty()){
+            throw new InvalidTransactionException("Invalid transaction: Payee not found - " + transaction);
+        } else {
+            customerRepository.findById(transaction.payee())
+                    .map(payee -> customerRepository.findById(transaction.payer())
+                            .map(payer -> isPayerValid(transaction, payer) ? transaction : null)
+                            .orElseThrow(() -> new InvalidTransactionException("Invalid transaction Unknown reason - " + transaction))
+                    ).orElseThrow(() -> new InvalidTransactionException("Invalid transaction: Payer not found - " + transaction));
+        }
     }
 
     private boolean isPayerValid(@NotNull Transaction transaction, @NotNull Customer payer){
-        return payer.isCommonCustomer() &&
-                payer.isAbleToPay(transaction.value()) &&
-                !payer.id().equals(transaction.payee());
+        if (!payer.isAbleToPay(transaction.value())){
+            throw new InvalidTransactionException("Invalid transaction: Insufficient payer balance - " + transaction);
+        }
+        if (!payer.isCommonCustomer()){
+            throw new InvalidTransactionException("Invalid transaction: Payer is not a common customer - " + transaction);
+        }
+        if (payer.id().equals(transaction.payee())){
+            throw new InvalidTransactionException("Invalid transaction: Payer and payee are the same - " + transaction);
+        }
+        return true;
     }
 }
