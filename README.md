@@ -73,10 +73,6 @@ curl -X POST \
   }'
 ```
 
-If everything is working as expected, the request should return inserted customers.
-
-<--- WIP --->
-
  Get all customers using cURL request:
  ```bash
 curl http://localhost:8080/customer
@@ -87,3 +83,25 @@ curl http://localhost:8080/customer/{id}
 ```
 
 If everything is working as expected, the request should return your customers.
+
+### Transfer endpoint
+The application has an transaction endpoint `/transfer` that will accept POST requests to make transactions between customers.
+
+ Create transactions using cURL requests:
+ ```bash
+curl -X POST \
+  http://localhost:8080/transfer \
+  -H 'Content-type: application/json' \
+  -d '{
+    "payer": 1,
+    "payee": 2,
+    "value": 500 
+  }'
+```
+
+ Get all transfers using cURL request:
+ ```bash
+curl http://localhost:8080/transfer
+```
+
+If everything is working as expected, the request should return your transfers.
