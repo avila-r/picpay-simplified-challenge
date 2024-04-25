@@ -84,7 +84,7 @@ curl http://localhost:8080/customer/{id}
 
 If everything is working as expected, the request should return your customers.
 
-### Transfer endpoint
+### Transaction endpoint
 The application has an transaction endpoint `/transfer` that will accept POST requests to make transactions between customers.
 
  Create transactions using cURL requests:
@@ -99,7 +99,7 @@ curl -X POST \
   }'
 ```
 
- Get all transfers using cURL request:
+ Get all transactions using cURL request:
  ```bash
 curl http://localhost:8080/transfer
 ```
