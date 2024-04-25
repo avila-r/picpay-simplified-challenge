@@ -42,8 +42,8 @@ The picpay-database container (PostgreSQL RDBMS) needs to run on port `5432`;
 
 Configure the port by changing in __docker-compose.yml__, then modify __application.properties__ at Spring application.
 
-### Test Endpoints
-The application has an customer-insert endpoint `/customer` that will accept POST requests to insert users.
+### Customers endpoint
+The application has an customer-insert endpoint `/customer` that will accept requests to insert and get users.
 
  Insert customers using cURL requests:
  ```bash
@@ -73,4 +73,15 @@ curl -X POST \
   }'
 ```
 
-If everything is working as expected, the request should return inserted customers. As their type are 'COMMON', they are able to make transactions between themself.
+If everything is working as expected, the request should return inserted customers.
+
+ Get all customers using cURL request:
+ ```bash
+curl http://localhost:8080/customer
+```
+ Get customer by id using cURL request:
+ ```bash
+curl http://localhost:8080/customer/{id}
+```
+
+If everything is working as expected, the request should return your customers.
